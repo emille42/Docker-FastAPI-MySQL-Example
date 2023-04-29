@@ -1,0 +1,28 @@
+services:    
+    mysqlserver:
+        container_name: mysqlserver
+        build:
+            ./mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - mysqlvol:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+
+    apiapp:
+        container_name: apiapp
+        build:
+            ./app
+        ports:
+            - 80:80
+        environment:
+            DB_HOST_NAME: mysqlserver
+            DB_USER_NAME: admin
+            DB_PASSWORD: password
+            DB_NAME: UsersDB
+
+volumes:
+    mysqlvol:
+
+
